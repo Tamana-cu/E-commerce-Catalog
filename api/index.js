@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 
-/* MongoDB Connection */
+/* MongoDB Connection (optimized for Vercel) */
 
 let cached = global.mongoose;
 
@@ -38,12 +38,13 @@ async function connectDB() {
   cached.conn = await cached.promise;
 
   return cached.conn;
+
 }
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
 
   await connectDB();
 
   return app(req, res);
 
-}
+};
