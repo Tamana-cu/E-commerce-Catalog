@@ -1,8 +1,7 @@
 {
 "name": "ecommerce-catalog",
 "version": "1.0.0",
-"description": "E-commerce product catalog API",
-"main": "server.js",
+"main": "api/index.js",
 "scripts": {
 "start": "node server.js",
 "dev": "nodemon server.js"

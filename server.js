@@ -14,19 +14,14 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
 
   console.log("MongoDB Connected");
 
   app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
+    console.log("Server running at http://localhost:3000");
   });
 
 })
-.catch(err => {
-  console.error("Database connection error:", err);
-});
+.catch(err => console.log("Database connection error:", err));

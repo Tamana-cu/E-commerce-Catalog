@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
 
 const productRoutes = require("../routes/productRoutes");
 
@@ -14,7 +13,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 
-/* MongoDB Connection (optimized for Vercel) */
+/* MongoDB connection caching for serverless */
 
 let cached = global.mongoose;
 
@@ -31,14 +30,13 @@ async function connectDB() {
     cached.promise = mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
-    }).then(mongoose => mongoose);
+    });
 
   }
 
   cached.conn = await cached.promise;
 
   return cached.conn;
-
 }
 
 module.exports = async (req, res) => {
